@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG Iishka - Анализ финансовых документов</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <h1 class="logo">💰 RAG Iishka</h1>
+                    <div class="user-info" id="userInfo" style="display: none;">
+                        <span id="userEmail"></span>
+                        <button class="btn btn-secondary" onclick="logout()">Выйти</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div class="container">
+                <!-- Login Form (shown when not authenticated) -->
+                <div id="loginSection" class="auth-section">
+                    <div class="auth-card">
+                        <h2>Вход в систему</h2>
+                        <form id="loginForm" onsubmit="handleLogin(event)">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="nikita2@gmail.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Пароль</label>
+                                <input type="password" id="password" name="password" placeholder="128912" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Войти</button>
+                        </form>
+                        <p class="auth-link">
+                            Нет аккаунта? <a href="#" onclick="showRegister(); return false;">Зарегистрироваться</a>
+                        </p>
+                        <div id="loginError" class="error-message" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <!-- Register Form -->
+                <div id="registerSection" class="auth-section" style="display: none;">
+                    <div class="auth-card">
+                        <h2>Регистрация</h2>
+                        <form id="registerForm" onsubmit="handleRegister(event)">
+                            <div class="form-group">
+                                <label for="regUsername">Имя пользователя</label>
+                                <input type="text" id="regUsername" name="username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="regEmail">Email</label>
+                                <input type="email" id="regEmail" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="regPassword">Пароль</label>
+                                <input type="password" id="regPassword" name="password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Зарегистрироваться</button>
+                        </form>
+                        <p class="auth-link">
+                            Уже есть аккаунт? <a href="#" onclick="showLogin(); return false;">Войти</a>
+                        </p>
+                        <div id="registerError" class="error-message" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <!-- Main App (shown when authenticated) -->
+                <div id="appSection" style="display: none;">
+                    <!-- Upload Section -->
+                    <section class="upload-section">
+                        <h2>Загрузить документ</h2>
+                        <form id="uploadForm" onsubmit="handleUpload(event)">
+                            <div class="form-group">
+                                <label for="file">Выберите файл</label>
+                                <input type="file" id="file" name="file" accept="image/*,.pdf" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="docType">Тип документа</label>
+                                <select id="docType" name="type" required>
+                                    <option value="receipt">Чек</option>
+                                    <option value="statement">Выписка</option>
+                                    <option value="screenshot">Скриншот</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Загрузить</button>
+                        </form>
+                        <div id="uploadError" class="error-message" style="display: none;"></div>
+                        <div id="uploadSuccess" class="success-message" style="display: none;"></div>
+                    </section>
+
+                    <!-- Documents List -->
+                    <section class="documents-section">
+                        <h2>Мои документы</h2>
+                        <button class="btn btn-secondary" onclick="loadDocuments()">Обновить список</button>
+                        <div id="documentsList" class="documents-grid">
+                            <p class="loading">Загрузка...</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
+
