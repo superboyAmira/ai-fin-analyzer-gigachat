@@ -4,7 +4,6 @@
 *.dll
 *.so
 *.dylib
-rag-iishka
 
 # Test binary
 *.test
@@ -48,4 +47,4 @@ docs/
 
 # Seed cache
 cmd/seed/.seed_cache.json
-
+!cmd/rag-iishka/main.go
